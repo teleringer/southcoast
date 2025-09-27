@@ -64,14 +64,7 @@ export default function Footer() {
         <div>© {year} South Coast Legal PLLC. All rights reserved.</div>
         <div className="flex items-center gap-6">
           <span>Licensed in Florida &amp; Pennsylvania</span>
-          <a
-            href="https://teleringer.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 rounded-sm"
-          >
-            Web Design by Teleringer
-          </a>
+
         </div>
       </div>
     </footer>
