@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // Lock background scroll when mobile menu is open
+  // Lock background scroll when the mobile menu is open
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
+    const prevOverflow = document.body.style.overflow;
+    const prevX = document.documentElement.style.overflowX;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflowX = "hidden"; // kill horizontal wiggle
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevOverflow;
+      document.documentElement.style.overflowX = prevX;
     };
   }, [open]);
 
@@ -76,21 +79,28 @@ export default function Header() {
         </button>
       </div>
 
-      {/* FULL-SCREEN MOBILE MENU (solid overlay, no page visible) */}
+      {/* FULL-SCREEN MOBILE MENU (solid blue, 2× logo, name line, no side scroll) */}
       {open && (
-        <div className="fixed inset-0 z-50 w-screen h-svh bg-[#173b8c] text-white overflow-hidden">
+        <div
+          className="
+            fixed inset-0 z-50 h-svh w-full
+            bg-[#173B8C]  /* ← brand blue; tweak if you have the exact hex */
+            text-white overflow-hidden
+          "
+        >
           <div className="flex h-svh flex-col">
-            {/* Top bar with larger logo + close icon */}
+            {/* Top bar with MUCH larger logo + close icon */}
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 pb-2">
               <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
-                <img src="/scl-footer-logo-white.png" alt="South Coast Legal" className="h-20 w-auto" />
+                {/* 2× bigger than before */}
+                <img src="/scl-footer-logo-white.png" alt="South Coast Legal" className="h-40 w-auto" />
               </a>
               <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white">
                 <i className="ri-close-line text-3xl" />
               </button>
             </div>
 
-            {/* Small-caps name centered under logo */}
+            {/* Small-caps name centered under the logo */}
             <div className="mx-auto w-full max-w-7xl px-6">
               <div className="[font-variant-caps:small-caps] tracking-[.08em] text-white/95 text-base text-center">
                 Marianne M. Stivala, Esq.
@@ -98,7 +108,7 @@ export default function Header() {
             </div>
 
             {/* Big uppercase links with separators */}
-            <nav className="mx-auto w-full max-w-7xl px-6 flex-1">
+            <nav className="mx-auto w-full max-w-7xl px-6 flex-1 overflow-hidden">
               <ul className="divide-y divide-white/25">
                 {[
                   ["HOME", "home"],
