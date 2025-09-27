@@ -8,11 +8,13 @@ export default function Footer() {
         {/* Brand + blurb + contact */}
         <div className="md:col-span-6">
           {/* Use your white/light logo if available */}
-          <img
-            src="/scl-footer-logo-white.png"  // <-- upload this to /public with this exact name (see note below)
-            alt="South Coast Legal PLLC"
-            className="h-32 w-auto"            // doubled from h-16 -> h-32
-          />
+          <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="inline-block">
+  <img
+    src="/scl-footer-logo-white.png"
+    alt="South Coast Legal PLLC"
+    className="h-32 w-auto"
+  />
+</a>
 
           <p className="mt-4 max-w-xl text-slate-300">
             Experienced legal representation in Business Law, Real Estate,
