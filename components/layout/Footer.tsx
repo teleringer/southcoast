@@ -1,21 +1,19 @@
-// components/layout/Footer.tsx
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-[#0f172a] text-slate-200">
-      {/* Top grid (logo + blurb + contact • quick links • practice areas) */}
+      {/* Top grid */}
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-12 lg:px-8">
-        {/* Brand + blurb + contact (6/12) */}
+        {/* Brand + blurb + contact */}
         <div className="md:col-span-6">
-          {/* Logo */}
+          {/* Use your white/light logo if available */}
           <img
-            src="/scl-footer-logo.png"  // <- replace with your actual filename in /public
+            src="/scl-footer-logo-white.png"  // <-- upload this to /public with this exact name (see note below)
             alt="South Coast Legal PLLC"
-            className="h-16 w-auto"
+            className="h-32 w-auto"            // doubled from h-16 -> h-32
           />
 
-          {/* Blurb */}
           <p className="mt-4 max-w-xl text-slate-300">
             Experienced legal representation in Business Law, Real Estate,
             and Wills &amp; Estates. Licensed in Florida and Pennsylvania.
@@ -23,7 +21,6 @@ export default function Footer() {
             Invested in Your Success.
           </p>
 
-          {/* Contact lines */}
           <ul className="mt-6 space-y-3 text-slate-300">
             <li className="flex items-center gap-3">
               <i className="ri-phone-line text-blue-300" aria-hidden="true" />
@@ -36,7 +33,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Quick Links (3/12) */}
+        {/* Quick Links */}
         <nav className="md:col-span-3">
           <h4 className="mb-4 font-semibold text-white">Quick Links</h4>
           <ul className="space-y-2 text-slate-300">
@@ -46,7 +43,7 @@ export default function Footer() {
           </ul>
         </nav>
 
-        {/* Practice Areas (3/12) */}
+        {/* Practice Areas */}
         <nav className="md:col-span-3">
           <h4 className="mb-4 font-semibold text-white">Practice Areas</h4>
           <ul className="space-y-2 text-slate-300">
@@ -58,7 +55,7 @@ export default function Footer() {
           </ul>
         </nav>
 
-        {/* Divider matching screenshot */}
+        {/* Divider */}
         <div className="md:col-span-12 mt-4 h-px bg-white/10" />
       </div>
 
@@ -71,7 +68,7 @@ export default function Footer() {
             href="https://teleringer.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-slate-500 underline-offset-4 hover:text-white"
+            className="text-xs hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 rounded-sm"
           >
             Web Design by Teleringer
           </a>
