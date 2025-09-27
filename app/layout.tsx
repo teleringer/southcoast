@@ -13,15 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="h-full">
       <head>
         {/* Remix Icons */}
-        <link
-          href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
-          rel="stylesheet"
-        />
-        {/* Playfair Display for headings */}
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+        {/* Playfair (headings) + Inter (body) */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
