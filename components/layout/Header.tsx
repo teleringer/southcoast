@@ -1,23 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // Prevent background scroll when the mobile menu is open
+  // Lock background scroll when mobile menu is open
   useEffect(() => {
-    if (open) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
   }, [open]);
 
-  const scrollTo = (id: string) => {
+  const go = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
     setOpen(false);
@@ -26,14 +22,15 @@ export default function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-4 pb-3">
-        {/* Smaller logo on mobile, larger on desktop */}
-        <Link href="/" aria-label="South Coast Legal — Home" className="flex items-center">
+        {/* CLICKABLE LOGO (same-tab) */}
+        <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
+          {/* mobile ≈64px tall, desktop ≈150–170px tall */}
           <img
             src="/scl-footer-logo-white.png"
             alt="South Coast Legal"
-            className="h-10 w-auto md:h-16"   /* mobile ≈40px tall, desktop ≈64px */
+            className="h-16 w-auto md:h-[150px] lg:h-[170px] object-contain"
           />
-        </Link>
+        </a>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
@@ -45,13 +42,12 @@ export default function Header() {
           ].map(([label, id]) => (
             <button
               key={id}
-              onClick={() => scrollTo(id)}
+              onClick={() => go(id)}
               className="text-white drop-shadow-lg text-sm font-bold tracking-wide hover:text-blue-200"
             >
               {label}
             </button>
           ))}
-
           <a
             href="tel:+19549953306"
             className="text-white/90 hover:text-white drop-shadow-lg font-semibold"
@@ -59,9 +55,8 @@ export default function Header() {
           >
             (954) 995-3306
           </a>
-
           <button
-            onClick={() => scrollTo("contact")}
+            onClick={() => go("contact")}
             className="rounded-md bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800"
           >
             Schedule Consultation
@@ -78,15 +73,13 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Full-screen mobile menu (solid; hides page behind) */}
+      {/* FULL-SCREEN MOBILE MENU (solid overlay, no page bleed) */}
       {open && (
         <div className="fixed inset-0 z-50 bg-[#0f172a] text-white">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-            <img
-              src="/scl-footer-logo-white.png"
-              alt="South Coast Legal"
-              className="h-10 w-auto"
-            />
+            <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
+              <img src="/scl-footer-logo-white.png" alt="South Coast Legal" className="h-12 w-auto" />
+            </a>
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white">
               <i className="ri-close-line text-3xl" />
             </button>
@@ -102,7 +95,7 @@ export default function Header() {
               ].map(([label, id]) => (
                 <li key={id}>
                   <button
-                    onClick={() => scrollTo(id)}
+                    onClick={() => go(id)}
                     className="w-full rounded-md bg-white/10 px-4 py-4 text-left text-lg font-semibold"
                   >
                     {label}
@@ -110,16 +103,13 @@ export default function Header() {
                 </li>
               ))}
               <li>
-                <a
-                  href="tel:+19549953306"
-                  className="block rounded-md bg-white/10 px-4 py-4 text-lg font-semibold"
-                >
+                <a href="tel:+19549953306" className="block rounded-md bg-white/10 px-4 py-4 text-lg font-semibold">
                   (954) 995-3306
                 </a>
               </li>
               <li>
                 <button
-                  onClick={() => scrollTo("contact")}
+                  onClick={() => go("contact")}
                   className="w-full rounded-md bg-blue-700 px-4 py-4 text-lg font-semibold"
                 >
                   Schedule Consultation
