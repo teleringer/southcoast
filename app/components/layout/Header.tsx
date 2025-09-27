@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // Lock background scroll when the mobile menu is open and kill horizontal wiggle
+  // Lock background scroll & horizontal wiggle when the mobile menu is open
   useEffect(() => {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
     const prevX = document.documentElement.style.overflowX;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflowX = "hidden";
+    document.body.style.overflow = "hidden";      // no vertical scroll behind menu
+    document.documentElement.style.overflowX = "hidden"; // kill left-right movement
     return () => {
       document.body.style.overflow = prevOverflow;
       document.documentElement.style.overflowX = prevX;
@@ -79,7 +79,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* FULL-SCREEN MOBILE MENU (solid blue #1E3B8B, 2× logo, name line, no side scroll) */}
+      {/* FULL-SCREEN MOBILE MENU (brand blue, 2× logo, name line, no side scroll) */}
       {open && (
         <div
           className="
@@ -133,7 +133,7 @@ export default function Header() {
                     <i className="ri-phone-line text-2xl" /> (954) 995-3306
                   </a>
                 </li>
-            </ul>
+              </ul>
             </nav>
 
             {/* Bottom CTA */}
