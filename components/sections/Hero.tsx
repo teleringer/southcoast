@@ -10,7 +10,7 @@ export default function Hero() {
     <section id="home" className="relative min-h-screen overflow-x-hidden">
       {/* FULL-BLEED BACKGROUND */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Desktop: Gumlet iframe */}
+        {/* Desktop video */}
         <div className="hidden md:block">
           <iframe
             title="Gumlet video"
@@ -22,7 +22,7 @@ export default function Hero() {
           <div className="absolute inset-0 bg-blue-900/40" />
         </div>
 
-        {/* Mobile: fallback image */}
+        {/* Mobile fallback image */}
         <div className="absolute inset-0 md:hidden">
           <img
             src="https://readdy.ai/api/search-image?query=Beautiful%20Florida%20golden%20hour%20beach%20dusk&width=800&height=1200&seq=mobile-hero-dusk-beach&orientation=portrait"
@@ -35,13 +35,14 @@ export default function Hero() {
 
       {/* CONTENT */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16">
-        {/* Centered; nudged ~40px lower on desktop; safe on mobile */}
-        <div className="
-          flex
-          min-h-[calc(100svh-160px)] pt-6
-          md:min-h-[calc(100vh-140px)] md:pt-10
-          items-center
-        ">
+        {/* More offset on desktop (~+60px vs prior), tidy mobile centering */}
+        <div
+          className="
+            flex items-center
+            min-h-[calc(100svh-140px)] pt-16
+            md:min-h-[calc(100vh-140px)] md:pt-40
+          "
+        >
           <div className="mx-auto max-w-4xl text-center text-white">
             <h1 className="mb-6 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
               Invested In Your Success
