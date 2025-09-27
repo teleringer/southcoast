@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 type Props = {
   src: string;              // Gumlet URL (or direct MP4)
   poster?: string;          // e.g., /poster.jpg
-  children?: React.ReactNode; // overlay content
+  children?: React.ReactNode;
 };
 
 export default function HeroVideo({ src, poster = "/poster.jpg", children }: Props) {
@@ -15,7 +15,7 @@ export default function HeroVideo({ src, poster = "/poster.jpg", children }: Pro
     const v = ref.current;
     if (!v) return;
     const tryPlay = async () => {
-      try { await v.play(); } catch { /* autoplay may be blocked */ }
+      try { await v.play(); } catch {}
     };
     tryPlay();
   }, []);
@@ -34,9 +34,7 @@ export default function HeroVideo({ src, poster = "/poster.jpg", children }: Pro
         aria-label="Background video"
       />
       <style jsx>{`
-        @media (prefers-reduced-motion: reduce) {
-          video { display: none; }
-        }
+        @media (prefers-reduced-motion: reduce) { video { display: none; } }
       `}</style>
 
       <div className="pointer-events-none absolute inset-0 bg-black/40" />
