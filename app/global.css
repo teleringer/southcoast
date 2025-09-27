@@ -157,3 +157,6 @@ html, body { font-family: var(--font-sans); }
 h1, h2, h3, .font-serif { font-family: var(--font-serif); }
 /* Ensure the hand cursor on all buttons and button-like elements */
 button, [role="button"] { cursor: pointer; }
+
+/* Prevent any accidental horizontal scrolling on mobile */
+html, body { overflow-x: hidden; }
