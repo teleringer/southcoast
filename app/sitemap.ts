@@ -1,17 +1,14 @@
-import { getBlogPosts } from 'app/blog/utils'
+// app/sitemap.ts
+import type { MetadataRoute } from "next";
 
-export const baseUrl = 'https://portfolio-blog-starter.vercel.app'
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = "https://southcoast.legal";
+  const now = new Date();
 
-export default async function sitemap() {
-  let blogs = getBlogPosts().map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
-  }))
-
-  let routes = ['', '/blog'].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-  }))
-
-  return [...routes, ...blogs]
+  return [
+    { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${base}/practice-areas`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${base}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${base}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+  ];
 }
