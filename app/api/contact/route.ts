@@ -52,6 +52,7 @@ export async function POST(req: Request) {
         <p><strong>Name:</strong> ${esc(name)}</p>
         <p><strong>Email:</strong> ${esc(email)}</p>
         <p><strong>Phone:</strong> ${esc(phone)}</p>
+        <p><strong>Service:</strong> ${esc(service)}</p>
         <p><strong>Subject:</strong> ${esc(subject)}</p>
         <p><strong>Message:</strong><br/>${esc(message).replace(/\n/g, "<br/>")}</p>
       </div>
