@@ -1,51 +1,80 @@
 // components/layout/Footer.tsx
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-4 lg:px-8">
-        <div className="md:col-span-2">
-          <div className="mb-4 flex items-center space-x-3">
-            <a
-              href="https://southcoast.legal"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="SouthCoast.Legal (opens in a new tab)"
-            >
-              <img
-                src="https://images.squarespace-cdn.com/content/v1/66fd2c49f1a26e0a041e332c/77c6c605-05a5-4264-abe7-e902f8aad150/SCL_LOGO+copy.png?format=1500w"
-                alt="SouthCoast.Legal"
-                className="h-16 w-auto brightness-0 invert"
-              />
-            </a>
-          </div>
-          <p className="mb-4 max-w-md text-gray-300">
-            Experienced counsel for Business Law, Real Estate, and Wills &amp; Estates across
-            Florida and Pennsylvania.
+    <footer className="bg-[#0f172a] text-slate-200">
+      {/* Top grid (logo + blurb + contact • quick links • practice areas) */}
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-12 lg:px-8">
+        {/* Brand + blurb + contact (6/12) */}
+        <div className="md:col-span-6">
+          {/* Logo */}
+          <img
+            src="/scl-footer-logo.png"  // <- replace with your actual filename in /public
+            alt="South Coast Legal PLLC"
+            className="h-16 w-auto"
+          />
+
+          {/* Blurb */}
+          <p className="mt-4 max-w-xl text-slate-300">
+            Experienced legal representation in Business Law, Real Estate,
+            and Wills &amp; Estates. Licensed in Florida and Pennsylvania.
+            <br />
+            Invested in Your Success.
           </p>
-        </div>
 
-        <div>
-          <h4 className="mb-3 font-semibold">Contact</h4>
-          <ul className="space-y-2 text-gray-300">
-            <li><a href="tel:+19549953306" className="hover:text-white">(954) 995-3306</a></li>
-            <li><a href="mailto:southcoast@teleringer.com" className="hover:text-white">southcoast@teleringer.com</a></li>
+          {/* Contact lines */}
+          <ul className="mt-6 space-y-3 text-slate-300">
+            <li className="flex items-center gap-3">
+              <i className="ri-phone-line text-blue-300" aria-hidden="true" />
+              <a href="tel:+19549953306" className="hover:text-white">(954) 995-3306</a>
+            </li>
+            <li className="flex items-center gap-3">
+              <i className="ri-map-pin-line text-blue-300" aria-hidden="true" />
+              <span>Hollywood, Florida 33019</span>
+            </li>
           </ul>
         </div>
 
-        <div>
-          <h4 className="mb-3 font-semibold">Links</h4>
-          <ul className="space-y-2 text-gray-300">
-            <li><a href="#home" className="hover:text-white">Home</a></li>
-            <li><a href="#about" className="hover:text-white">About</a></li>
-            <li><a href="#services" className="hover:text-white">Services</a></li>
-            <li><a href="#contact" className="hover:text-white">Contact</a></li>
+        {/* Quick Links (3/12) */}
+        <nav className="md:col-span-3">
+          <h4 className="mb-4 font-semibold text-white">Quick Links</h4>
+          <ul className="space-y-2 text-slate-300">
+            <li><a href="#about" className="hover:text-white">About Attorney Stivala</a></li>
+            <li><a href="#services" className="hover:text-white">Legal Services</a></li>
+            <li><a href="#contact" className="hover:text-white">Contact Us</a></li>
           </ul>
-        </div>
+        </nav>
+
+        {/* Practice Areas (3/12) */}
+        <nav className="md:col-span-3">
+          <h4 className="mb-4 font-semibold text-white">Practice Areas</h4>
+          <ul className="space-y-2 text-slate-300">
+            <li><a href="#services" className="hover:text-white">Business Law</a></li>
+            <li><a href="#services" className="hover:text-white">Real Estate</a></li>
+            <li><a href="#services" className="hover:text-white">Wills &amp; Estates</a></li>
+            <li><a href="#services" className="hover:text-white">Contract Review</a></li>
+            <li><a href="#services" className="hover:text-white">Entity Formation</a></li>
+          </ul>
+        </nav>
+
+        {/* Divider matching screenshot */}
+        <div className="md:col-span-12 mt-4 h-px bg-white/10" />
       </div>
 
-      <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 py-5 text-sm text-gray-400 sm:px-6 lg:px-8">
-          © {new Date().getFullYear()} SouthCoast.Legal. All rights reserved.
+      {/* Bottom bar */}
+      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-3 px-4 py-5 text-sm text-slate-400 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+        <div>© {year} South Coast Legal PLLC. All rights reserved.</div>
+        <div className="flex items-center gap-6">
+          <span>Licensed in Florida &amp; Pennsylvania</span>
+          <a
+            href="https://teleringer.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-slate-500 underline-offset-4 hover:text-white"
+          >
+            Web Design by Teleringer
+          </a>
         </div>
       </div>
     </footer>
