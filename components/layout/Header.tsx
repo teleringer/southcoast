@@ -1,10 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+
+  // Prevent background scroll when the mobile menu is open
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [open]);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -14,16 +25,13 @@ export default function Header() {
 
   return (
     <header className="absolute inset-x-0 top-0 z-40">
-      {/* more top padding so the larger logo breathes */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-8 pb-6">
-        {/* BIG WHITE LOGO */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-4 pb-3">
+        {/* Smaller logo on mobile, larger on desktop */}
         <Link href="/" aria-label="South Coast Legal — Home" className="flex items-center">
           <img
-            src="/scl-footer-logo-white.png"   // same file you're using in the footer
+            src="/scl-footer-logo-white.png"
             alt="South Coast Legal"
-            width={225}
-            height={150}
-            className="w-[225px] h-[150px] md:w-[260px] md:h-[170px] object-contain"
+            className="h-10 w-auto md:h-16"   /* mobile ≈40px tall, desktop ≈64px */
           />
         </Link>
 
@@ -60,9 +68,9 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* Mobile burger */}
+        {/* Mobile burger (right) */}
         <button
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen(true)}
           className="md:hidden text-white drop-shadow-lg"
           aria-label="Open menu"
         >
@@ -70,54 +78,55 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Full-screen mobile menu (solid; hides page behind) */}
       {open && (
-        <div className="md:hidden">
-          <div className="mx-4 rounded-lg border border-white/20 bg-black/80 px-4 py-4 backdrop-blur">
-            <div className="flex items-center justify-between">
-              <img
-                src="/scl-footer-logo-white.png"
-                alt="South Coast Legal"
-                width={180}
-                height={120}
-                className="w-[180px] h-[120px] object-contain"
-              />
-              <button onClick={() => setOpen(false)} className="text-white" aria-label="Close menu">
-                <i className="ri-close-line text-2xl" />
-              </button>
-            </div>
+        <div className="fixed inset-0 z-50 bg-[#0f172a] text-white">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <img
+              src="/scl-footer-logo-white.png"
+              alt="South Coast Legal"
+              className="h-10 w-auto"
+            />
+            <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white">
+              <i className="ri-close-line text-3xl" />
+            </button>
+          </div>
 
-            <div className="mt-4 grid gap-3">
+          <nav className="mx-auto mt-6 max-w-7xl px-6">
+            <ul className="grid gap-3">
               {[
                 ["HOME", "home"],
                 ["ABOUT", "about"],
                 ["SERVICES", "services"],
                 ["CONTACT", "contact"],
               ].map(([label, id]) => (
-                <button
-                  key={id}
-                  onClick={() => scrollTo(id)}
-                  className="w-full rounded-md bg_WHITE/10 px-4 py-3 text-left text-white font-semibold"
-                >
-                  {label}
-                </button>
+                <li key={id}>
+                  <button
+                    onClick={() => scrollTo(id)}
+                    className="w-full rounded-md bg-white/10 px-4 py-4 text-left text-lg font-semibold"
+                  >
+                    {label}
+                  </button>
+                </li>
               ))}
-
-              <a
-                href="tel:+19549953306"
-                className="rounded-md bg-white/10 px-4 py-3 text-white font-semibold"
-              >
-                (954) 995-3306
-              </a>
-
-              <button
-                onClick={() => scrollTo("contact")}
-                className="rounded-md bg-blue-700 px-4 py-3 text-white font-semibold"
-              >
-                Schedule Consultation
-              </button>
-            </div>
-          </div>
+              <li>
+                <a
+                  href="tel:+19549953306"
+                  className="block rounded-md bg-white/10 px-4 py-4 text-lg font-semibold"
+                >
+                  (954) 995-3306
+                </a>
+              </li>
+              <li>
+                <button
+                  onClick={() => scrollTo("contact")}
+                  className="w-full rounded-md bg-blue-700 px-4 py-4 text-lg font-semibold"
+                >
+                  Schedule Consultation
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       )}
     </header>
