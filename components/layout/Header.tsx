@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -11,18 +12,17 @@ export default function Header() {
     setOpen(false);
   };
 
-  const goMain = () => window.open("https://southcoast.legal", "_blank");
-
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-        {/* Logo */}
-        <img
-          src="https://images.squarespace-cdn.com/content/v1/66fd2c49f1a26e0a041e332c/77c6c605-05a5-4264-abe7-e902f8aad150/SCL_LOGO+copy.png?format=1500w"
-          alt="South Coast Legal"
-          className="h-10 w-auto brightness-0 invert cursor-pointer"
-          onClick={goMain}
-        />
+        {/* SAME WHITE LOGO AS FOOTER */}
+        <Link href="/" aria-label="South Coast Legal — Home" className="flex items-center">
+          <img
+            src="/scl-footer-logo-white.png"   // ← same file as footer
+            alt="South Coast Legal"
+            className="h-14 w-auto md:h-16"     // tweak size here if you want
+          />
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
@@ -73,11 +73,11 @@ export default function Header() {
           <div className="mx-4 rounded-lg border border-white/20 bg-black/80 px-4 py-4 backdrop-blur">
             <div className="flex items-center justify-between">
               <img
-                src="https://images.squarespace-cdn.com/content/v1/66fd2c49f1a26e0a041e332c/77c6c605-05a5-4264-abe7-e902f8aad150/SCL_LOGO+copy.png?format=1500w"
+                src="/scl-footer-logo-white.png"  // ← same file here too
                 alt="South Coast Legal"
-                className="h-12 w-auto brightness-0 invert"
+                className="h-12 w-auto"
               />
-              <button onClick={() => setOpen(false)} className="text-white">
+              <button onClick={() => setOpen(false)} className="text-white" aria-label="Close menu">
                 <i className="ri-close-line text-2xl" />
               </button>
             </div>
