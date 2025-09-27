@@ -24,7 +24,7 @@ function esc(v: string) {
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({} as any));
-    const { name = "", email = "", phone = "", subject = "", message = "", company = "" } = body;
+    const { name = "", email = "", phone = "", subject = "", message = "", service = "", company = "" } = body || {};
 
     // Honeypot: bots fill this; humans don't
     if (String(company).trim()) {
