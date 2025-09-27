@@ -10,7 +10,9 @@ export default function Header() {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, [open]);
 
   const go = (id: string) => {
@@ -22,7 +24,7 @@ export default function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-4 pb-3">
-        {/* CLICKABLE LOGO (same tab) — small on mobile, BIG on desktop */}
+        {/* CLICKABLE LOGO (same tab) — compact on mobile, BIG on desktop */}
         <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
           <img
             src="/scl-footer-logo-white.png"
@@ -74,11 +76,11 @@ export default function Header() {
         </button>
       </div>
 
-      {/* FULL-SCREEN MOBILE MENU — matches your screenshot */}
+      {/* FULL-SCREEN MOBILE MENU (solid overlay, no page visible) */}
       {open && (
         <div className="fixed inset-0 z-50 w-screen h-svh bg-[#173b8c] text-white overflow-hidden">
           <div className="flex h-svh flex-col">
-            {/* Top bar with LARGER logo + close icon */}
+            {/* Top bar with larger logo + close icon */}
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 pb-2">
               <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
                 <img src="/scl-footer-logo-white.png" alt="South Coast Legal" className="h-20 w-auto" />
@@ -95,7 +97,7 @@ export default function Header() {
               </div>
             </div>
 
-            {/* Big uppercase links with separators; no page scroll; no side movement */}
+            {/* Big uppercase links with separators */}
             <nav className="mx-auto w-full max-w-7xl px-6 flex-1">
               <ul className="divide-y divide-white/25">
                 {[
@@ -124,7 +126,7 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Bottom CTA — big pill, no scroll needed */}
+            {/* Bottom CTA */}
             <div className="px-6 pb-6">
               <button
                 onClick={() => go("contact")}
