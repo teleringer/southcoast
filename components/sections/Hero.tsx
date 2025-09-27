@@ -7,8 +7,8 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen">
-      {/* FULL-BLEED BACKGROUND (covers side gutters) */}
+    <section id="home" className="relative min-h-screen overflow-x-hidden">
+      {/* FULL-BLEED BACKGROUND */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Desktop: Gumlet iframe */}
         <div className="hidden md:block">
@@ -19,7 +19,6 @@ export default function Hero() {
             style={{ border: "none" }}
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen;"
           />
-          {/* overlay tint */}
           <div className="absolute inset-0 bg-blue-900/40" />
         </div>
 
@@ -28,53 +27,57 @@ export default function Hero() {
           <img
             src="https://readdy.ai/api/search-image?query=Beautiful%20Florida%20golden%20hour%20beach%20dusk&width=800&height=1200&seq=mobile-hero-dusk-beach&orientation=portrait"
             alt="Florida beach at dusk"
-            className="absolute left-1/2 top-1/2 h-[120vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover"
+            className="absolute left-1/2 top-1/2 h-[120svh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover"
           />
           <div className="absolute inset-0 bg-blue-900/30" />
         </div>
       </div>
 
-      {/* CONTENT (centered roughly mid-screen, below big header logo) */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-8 lg:px-16">
-        {/* Use a wrapper whose height is viewport minus header (~140px) so text sits mid-screen */}
-        <div className="flex min-h-[calc(100vh-140px)] items-center">
-          <div className="text-white text-center mx-auto max-w-4xl">
-            <h1 className="mb-6 font-serif text-4xl font-bold md:text-5xl lg:text-6xl">
+      {/* CONTENT */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16">
+        {/* Centered; nudged ~40px lower on desktop; safe on mobile */}
+        <div className="
+          flex
+          min-h-[calc(100svh-160px)] pt-6
+          md:min-h-[calc(100vh-140px)] md:pt-10
+          items-center
+        ">
+          <div className="mx-auto max-w-4xl text-center text-white">
+            <h1 className="mb-6 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
               Invested In Your Success
             </h1>
-            <p className="mb-8 text-lg md:text-xl text-blue-100">
+            <p className="mb-8 text-base sm:text-lg md:text-xl text-blue-100">
               Attorney Marianne M. Stivala provides personalized legal counsel in Business
               Law, Real Estate, and Wills &amp; Estates across Florida and Pennsylvania.
             </p>
 
-            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <button
                 onClick={() => scrollTo("contact")}
-                className="rounded-md bg-blue-700 px-6 py-3 text-white font-semibold hover:bg-blue-800"
+                className="w-full sm:w-auto rounded-md bg-blue-700 px-6 py-3 text-white font-semibold hover:bg-blue-800"
               >
                 Schedule Consultation
               </button>
               <button
                 onClick={() => scrollTo("services")}
-                className="rounded-md border-2 border-white px-6 py-3 text-white hover:bg-white hover:text-blue-800 transition"
+                className="w-full sm:w-auto rounded-md border-2 border-white px-6 py-3 text-white hover:bg-white hover:text-blue-800 transition"
               >
                 Our Services
               </button>
             </div>
 
-            {/* Stats */}
-            <div className="mx-auto mt-12 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-3">
+            <div className="mx-auto mt-10 sm:mt-12 grid max-w-2xl grid-cols-3 gap-4 sm:gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-white md:text-blue-200">20+</div>
-                <div className="text-blue-100">Years Experience</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white md:text-blue-200">20+</div>
+                <div className="text-blue-100 text-xs sm:text-sm">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white md:text-blue-200">2</div>
-                <div className="text-blue-100">State Licenses</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white md:text-blue-200">2</div>
+                <div className="text-blue-100 text-xs sm:text-sm">State Licenses</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-white md:text-blue-200">3</div>
-                <div className="text-blue-100">Practice Areas</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white md:text-blue-200">3</div>
+                <div className="text-blue-100 text-xs sm:text-sm">Practice Areas</div>
               </div>
             </div>
           </div>
