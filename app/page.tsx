@@ -1,4 +1,4 @@
-import HeroVideo from "@/components/HeroVideo";
+import HeroVideo from "../components/HeroVideo";
 import Link from "next/link";
 
 export default function Home() {
