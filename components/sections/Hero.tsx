@@ -1,7 +1,7 @@
 "use client";
 
 export default function Hero() {
-  const scrollTo = (id: string) => {
+  const jump = (id: string) => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -22,29 +22,28 @@ export default function Hero() {
           <div className="absolute inset-0 bg-blue-900/40" />
         </div>
 
-        {/* Mobile fallback image */}
+        {/* Mobile: your uploaded image */}
         <div className="absolute inset-0 md:hidden">
           <img
-            src="https://readdy.ai/api/search-image?query=Beautiful%20Florida%20golden%20hour%20beach%20dusk&width=800&height=1200&seq=mobile-hero-dusk-beach&orientation=portrait"
+            src="/mobile-hero.jpg"  /* <-- file you uploaded to /public */
             alt="Florida beach at dusk"
             className="absolute left-1/2 top-1/2 h-[120svh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover"
           />
-          <div className="absolute inset-0 bg-blue-900/30" />
+          {/* subtle top-to-bottom tint like your screenshot */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/35 via-transparent to-blue-900/20" />
         </div>
       </div>
 
       {/* CONTENT */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16">
-        {/* More offset on desktop (~+60px vs prior), tidy mobile centering */}
-        <div
-          className="
-            flex items-center
-            min-h-[calc(100svh-140px)] pt-16
-            md:min-h-[calc(100vh-140px)] md:pt-40
-          "
-        >
+        {/* Centered; extra push on desktop (~+60px) and comfy on mobile */}
+        <div className="
+          flex items-center
+          min-h-[calc(100svh-200px)] pt-24
+          md:min-h-[calc(100vh-140px)] md:pt-40 md:translate-y-[60px]
+        ">
           <div className="mx-auto max-w-4xl text-center text-white">
-            <h1 className="mb-6 font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
+            <h1 className="mb-6 font-serif font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               Invested In Your Success
             </h1>
             <p className="mb-8 text-base sm:text-lg md:text-xl text-blue-100">
@@ -54,13 +53,13 @@ export default function Hero() {
 
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <button
-                onClick={() => scrollTo("contact")}
+                onClick={() => jump("contact")}
                 className="w-full sm:w-auto rounded-md bg-blue-700 px-6 py-3 text-white font-semibold hover:bg-blue-800"
               >
                 Schedule Consultation
               </button>
               <button
-                onClick={() => scrollTo("services")}
+                onClick={() => jump("services")}
                 className="w-full sm:w-auto rounded-md border-2 border-white px-6 py-3 text-white hover:bg-white hover:text-blue-800 transition"
               >
                 Our Services
