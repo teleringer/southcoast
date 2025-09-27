@@ -14,13 +14,16 @@ export default function Header() {
 
   return (
     <header className="absolute inset-x-0 top-0 z-40">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-        {/* SAME WHITE LOGO AS FOOTER */}
+      {/* more top padding so the larger logo breathes */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-8 pb-6">
+        {/* BIG WHITE LOGO */}
         <Link href="/" aria-label="South Coast Legal — Home" className="flex items-center">
           <img
-            src="/scl-footer-logo-white.png"   // ← same file as footer
+            src="/scl-footer-logo-white.png"   // same file you're using in the footer
             alt="South Coast Legal"
-            className="h-14 w-auto md:h-16"     // tweak size here if you want
+            width={225}
+            height={150}
+            className="w-[225px] h-[150px] md:w-[260px] md:h-[170px] object-contain"
           />
         </Link>
 
@@ -73,9 +76,11 @@ export default function Header() {
           <div className="mx-4 rounded-lg border border-white/20 bg-black/80 px-4 py-4 backdrop-blur">
             <div className="flex items-center justify-between">
               <img
-                src="/scl-footer-logo-white.png"  // ← same file here too
+                src="/scl-footer-logo-white.png"
                 alt="South Coast Legal"
-                className="h-12 w-auto"
+                width={180}
+                height={120}
+                className="w-[180px] h-[120px] object-contain"
               />
               <button onClick={() => setOpen(false)} className="text-white" aria-label="Close menu">
                 <i className="ri-close-line text-2xl" />
@@ -92,7 +97,7 @@ export default function Header() {
                 <button
                   key={id}
                   onClick={() => scrollTo(id)}
-                  className="w-full rounded-md bg-white/10 px-4 py-3 text-left text-white font-semibold"
+                  className="w-full rounded-md bg_WHITE/10 px-4 py-3 text-left text-white font-semibold"
                 >
                   {label}
                 </button>
