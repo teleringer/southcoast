@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // Lock background scroll & kill horizontal wiggle when the mobile menu is open
+  // Lock background scroll while menu is open
   useEffect(() => {
     if (!open) return;
     const prevOverflow = document.body.style.overflow;
     const prevX = document.documentElement.style.overflowX;
-    document.body.style.overflow = "hidden";              // no vertical scroll behind
-    document.documentElement.style.overflowX = "hidden";  // no left/right movement
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflowX = "hidden";
     return () => {
       document.body.style.overflow = prevOverflow;
       document.documentElement.style.overflowX = prevX;
@@ -25,19 +25,17 @@ export default function Header() {
     setOpen(false);
   };
 
+  // same size open/closed on mobile
+  const mobileLogoHeightRem = 8; // 8rem ≈ h-32
+
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-4 pb-3">
-        {/* CLICKABLE LOGO (same tab) — force a larger mobile size */}
-        <a
-          href="https://southcoast.legal"
-          aria-label="South Coast Legal — Home"
-          className="flex items-center"
-        >
+        <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
           <img
             src="/scl-footer-logo-white.png"
             alt="South Coast Legal"
-            style={{ height: "9rem" }}              // ← ~2× typical mobile; forces size
+            style={{ height: `${mobileLogoHeightRem}rem` }}
             className="w-auto md:h-[150px] lg:h-[170px] md:w-auto object-contain"
           />
         </a>
@@ -58,15 +56,12 @@ export default function Header() {
               {label}
             </button>
           ))}
-
           <a
             href="tel:+19549953306"
             className="text-white/90 hover:text-white drop-shadow-lg font-semibold"
-            aria-label="Call (954) 995-3306"
           >
             (954) 995-3306
           </a>
-
           <button
             onClick={() => go("contact")}
             className="cursor-pointer rounded-md bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800"
@@ -75,7 +70,7 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* Mobile burger (right) */}
+        {/* Mobile burger */}
         <button
           onClick={() => setOpen(true)}
           className="md:hidden text-white drop-shadow-lg"
@@ -85,25 +80,21 @@ export default function Header() {
         </button>
       </div>
 
-      {/* FULL-SCREEN MOBILE MENU (brand blue #1E3B8B, same logo size, name line, no side scroll) */}
+      {/* FULL-SCREEN MOBILE MENU — absolutely covers the screen (no bottom gap) */}
       {open && (
         <div
-          className="fixed inset-0 z-50 w-screen overflow-hidden bg-[#1E3B8B] text-white"
-          style={{ height: "100dvh" }} // ensure full coverage on iOS/Android
+          className="fixed top-0 left-0 right-0 bottom-0 z-[100] w-full overflow-hidden bg-[#1E3B8B] text-white"
+          aria-modal="true"
+          role="dialog"
         >
-          <div className="flex w-full flex-col" style={{ minHeight: "100dvh" }}>
-            {/* Top bar with logo + close icon */}
-            <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 pb-2">
-              <a
-                href="https://southcoast.legal"
-                aria-label="South Coast Legal — Home"
-                className="flex items-center"
-              >
-                {/* same size as closed header */}
+          <div className="flex h-full w-full flex-col">
+            {/* top row identical to closed header */}
+            <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-4 pb-3">
+              <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
                 <img
                   src="/scl-footer-logo-white.png"
                   alt="South Coast Legal"
-                  style={{ height: "9rem" }}   // ← match closed header size
+                  style={{ height: `${mobileLogoHeightRem}rem` }}
                   className="w-auto object-contain"
                 />
               </a>
@@ -112,14 +103,14 @@ export default function Header() {
               </button>
             </div>
 
-            {/* Small-caps name centered under the logo */}
+            {/* Name line */}
             <div className="mx-auto w-full max-w-7xl px-6">
-              <div className="[font-variant-caps:small-caps] tracking-[.08em] text-white/95 text-base text-center">
+              <div className="[font-variant-caps:small-caps] tracking-[.08em] text-white/95 text-sm text-center">
                 Marianne M. Stivala, Esq.
               </div>
             </div>
 
-            {/* Big uppercase links with separators */}
+            {/* Menu list */}
             <nav className="mx-auto w-full max-w-7xl px-6 flex-1 overflow-hidden">
               <ul className="divide-y divide-white/25">
                 {[
@@ -131,17 +122,16 @@ export default function Header() {
                   <li key={id}>
                     <button
                       onClick={() => go(id)}
-                      className="cursor-pointer w-full py-5 text-left text-2xl font-extrabold tracking-wide uppercase"
+                      className="cursor-pointer w-full py-4 text-left text-xl font-bold tracking-wide uppercase"
                     >
                       {label}
                     </button>
                   </li>
                 ))}
-                {/* Phone row visible above CTA */}
                 <li>
                   <a
                     href="tel:+19549953306"
-                    className="flex items-center gap-3 py-5 text-xl font-semibold"
+                    className="flex items-center gap-3 py-4 text-lg font-semibold"
                   >
                     <i className="ri-phone-line text-2xl" /> (954) 995-3306
                   </a>
@@ -149,12 +139,11 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Bottom CTA — short label on mobile menu */}
-            <div className="px-6 pb-6">
+            {/* bottom CTA; safe-area padding so blue sheet still fills edge-to-edge */}
+            <div className="px-6 pb-[env(safe-area-inset-bottom)] pb-6">
               <button
                 onClick={() => go("contact")}
-                className="cursor-pointer w-full rounded-2xl bg-[#1f54d8] px-6 py-4 text-xl font-semibold text-white hover:bg-[#1b49bd]"
-                aria-label="Book Consultation"
+                className="cursor-pointer w-full rounded-2xl bg-[#1f54d8] px-6 py-4 text-lg font-semibold text-white hover:bg-[#1b49bd]"
               >
                 Book Consultation
               </button>
