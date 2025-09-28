@@ -1,3 +1,4 @@
+// components/layout/Header.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -5,12 +6,17 @@ import { useEffect, useState } from "react";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  // Lock background scroll when mobile menu is open
+  // Lock background scroll & kill horizontal wiggle when the mobile menu is open
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
+    const prevOverflow = document.body.style.overflow;
+    const prevX = document.documentElement.style.overflowX;
+    document.body.style.overflow = "hidden";           // no vertical scroll behind
+    document.documentElement.style.overflowX = "hidden"; // no left/right movement
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.documentElement.style.overflowX = prevX;
+    };
   }, [open]);
 
   const go = (id: string) => {
@@ -22,9 +28,8 @@ export default function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-4 pb-3">
-        {/* CLICKABLE LOGO (same-tab) */}
+        {/* CLICKABLE LOGO (same tab) — compact on mobile, BIG on desktop */}
         <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
-          {/* mobile ≈64px tall, desktop ≈150–170px tall */}
           <img
             src="/scl-footer-logo-white.png"
             alt="South Coast Legal"
@@ -43,7 +48,7 @@ export default function Header() {
             <button
               key={id}
               onClick={() => go(id)}
-              className="text-white drop-shadow-lg text-sm font-bold tracking-wide hover:text-blue-200"
+              className="cursor-pointer text-white drop-shadow-lg text-sm font-bold tracking-wide hover:text-blue-200"
             >
               {label}
             </button>
@@ -57,7 +62,7 @@ export default function Header() {
           </a>
           <button
             onClick={() => go("contact")}
-            className="rounded-md bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800"
+            className="cursor-pointer rounded-md bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800"
           >
             Schedule Consultation
           </button>
@@ -73,50 +78,64 @@ export default function Header() {
         </button>
       </div>
 
-      {/* FULL-SCREEN MOBILE MENU (solid overlay, no page bleed) */}
+      {/* FULL-SCREEN MOBILE MENU (brand blue #1E3B8B, 2× logo, name line, no side scroll) */}
       {open && (
-        <div className="fixed inset-0 z-50 bg-[#0f172a] text-white">
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-            <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
-              <img src="/scl-footer-logo-white.png" alt="South Coast Legal" className="h-12 w-auto" />
-            </a>
-            <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white">
-              <i className="ri-close-line text-3xl" />
-            </button>
-          </div>
+        <div className="fixed inset-0 z-50 h-svh w-screen bg-[#1E3B8B] text-white overflow-hidden">
+          <div className="flex h-svh flex-col">
+            {/* Top bar with MUCH larger logo + close icon */}
+            <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 pb-2">
+              <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
+                {/* 2× bigger logo */}
+                <img src="/scl-footer-logo-white.png" alt="South Coast Legal" className="h-40 w-auto" />
+              </a>
+              <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white">
+                <i className="ri-close-line text-3xl" />
+              </button>
+            </div>
 
-          <nav className="mx-auto mt-6 max-w-7xl px-6">
-            <ul className="grid gap-3">
-              {[
-                ["HOME", "home"],
-                ["ABOUT", "about"],
-                ["SERVICES", "services"],
-                ["CONTACT", "contact"],
-              ].map(([label, id]) => (
-                <li key={id}>
-                  <button
-                    onClick={() => go(id)}
-                    className="w-full rounded-md bg-white/10 px-4 py-4 text-left text-lg font-semibold"
-                  >
-                    {label}
-                  </button>
+            {/* Small-caps name centered under the logo */}
+            <div className="mx-auto w-full max-w-7xl px-6">
+              <div className="[font-variant-caps:small-caps] tracking-[.08em] text-white/95 text-base text-center">
+                Marianne M. Stivala, Esq.
+              </div>
+            </div>
+
+            {/* Big uppercase links with separators */}
+            <nav className="mx-auto w-full max-w-7xl px-6 flex-1 overflow-hidden">
+              <ul className="divide-y divide-white/25">
+                {[
+                  ["HOME", "home"],
+                  ["ABOUT", "about"],
+                  ["SERVICES", "services"],
+                  ["CONTACT", "contact"],
+                ].map(([label, id]) => (
+                  <li key={id}>
+                    <button
+                      onClick={() => go(id)}
+                      className="cursor-pointer w-full py-5 text-left text-2xl font-extrabold tracking-wide uppercase"
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+                <li>
+                  <a href="tel:+19549953306" className="flex items-center gap-3 py-5 text-xl font-semibold">
+                    <i className="ri-phone-line text-2xl" /> (954) 995-3306
+                  </a>
                 </li>
-              ))}
-              <li>
-                <a href="tel:+19549953306" className="block rounded-md bg-white/10 px-4 py-4 text-lg font-semibold">
-                  (954) 995-3306
-                </a>
-              </li>
-              <li>
-                <button
-                  onClick={() => go("contact")}
-                  className="w-full rounded-md bg-blue-700 px-4 py-4 text-lg font-semibold"
-                >
-                  Schedule Consultation
-                </button>
-              </li>
-            </ul>
-          </nav>
+              </ul>
+            </nav>
+
+            {/* Bottom CTA */}
+            <div className="px-6 pb-6">
+              <button
+                onClick={() => go("contact")}
+                className="cursor-pointer w-full rounded-2xl bg-[#1f54d8] px-6 py-4 text-xl font-semibold text-white hover:bg-[#1b49bd]"
+              >
+                Schedule Consultation
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </header>
