@@ -28,13 +28,17 @@ export default function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-4 pb-3">
-        {/* CLICKABLE LOGO (same tab)
-           Mobile logo is now 2× larger (h-32), and we keep big desktop sizes */}
-        <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
+        {/* CLICKABLE LOGO (same tab) — force a larger mobile size */}
+        <a
+          href="https://southcoast.legal"
+          aria-label="South Coast Legal — Home"
+          className="flex items-center"
+        >
           <img
             src="/scl-footer-logo-white.png"
             alt="South Coast Legal"
-            className="h-32 w-auto md:h-[150px] lg:h-[170px] object-contain"
+            style={{ height: "9rem" }}              // ← ~2× typical mobile; forces size
+            className="w-auto md:h-[150px] lg:h-[170px] md:w-auto object-contain"
           />
         </a>
 
@@ -81,23 +85,27 @@ export default function Header() {
         </button>
       </div>
 
-      {/* FULL-SCREEN MOBILE MENU
-         - Brand blue background (#1E3B8B)
-         - Logo same size as header (h-32) so it's consistent closed/open
-         - Small-caps name under logo
-         - Phone link visible ABOVE the CTA
-         - CTA shortened to "Book Consultation" on mobile menu only
-         - No side wiggle; overlay covers entire page (100dvh) */}
+      {/* FULL-SCREEN MOBILE MENU (brand blue #1E3B8B, same logo size, name line, no side scroll) */}
       {open && (
         <div
           className="fixed inset-0 z-50 w-screen overflow-hidden bg-[#1E3B8B] text-white"
-          style={{ height: "100dvh" }} // ensure full coverage on mobile browsers
+          style={{ height: "100dvh" }} // ensure full coverage on iOS/Android
         >
           <div className="flex w-full flex-col" style={{ minHeight: "100dvh" }}>
             {/* Top bar with logo + close icon */}
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-5 pb-2">
-              <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
-                <img src="/scl-footer-logo-white.png" alt="South Coast Legal" className="h-32 w-auto object-contain" />
+              <a
+                href="https://southcoast.legal"
+                aria-label="South Coast Legal — Home"
+                className="flex items-center"
+              >
+                {/* same size as closed header */}
+                <img
+                  src="/scl-footer-logo-white.png"
+                  alt="South Coast Legal"
+                  style={{ height: "9rem" }}   // ← match closed header size
+                  className="w-auto object-contain"
+                />
               </a>
               <button onClick={() => setOpen(false)} aria-label="Close menu" className="text-white">
                 <i className="ri-close-line text-3xl" />
@@ -111,7 +119,7 @@ export default function Header() {
               </div>
             </div>
 
-            {/* Menu list fills remaining height; phone row is visible above CTA */}
+            {/* Big uppercase links with separators */}
             <nav className="mx-auto w-full max-w-7xl px-6 flex-1 overflow-hidden">
               <ul className="divide-y divide-white/25">
                 {[
@@ -129,12 +137,11 @@ export default function Header() {
                     </button>
                   </li>
                 ))}
-                {/* Phone row (clickable), placed BEFORE CTA */}
+                {/* Phone row visible above CTA */}
                 <li>
                   <a
                     href="tel:+19549953306"
                     className="flex items-center gap-3 py-5 text-xl font-semibold"
-                    aria-label="Call (954) 995-3306"
                   >
                     <i className="ri-phone-line text-2xl" /> (954) 995-3306
                   </a>
@@ -142,7 +149,7 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Bottom CTA — shortened label ONLY in mobile menu */}
+            {/* Bottom CTA — short label on mobile menu */}
             <div className="px-6 pb-6">
               <button
                 onClick={() => go("contact")}
