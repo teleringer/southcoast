@@ -25,18 +25,17 @@ export default function Header() {
     setOpen(false);
   };
 
-  // Single source of truth for MOBILE logo height (closed + open)
-  const mobileLogoHeightRem = 8; // 8rem == Tailwind h-32
+  // ONE source of truth so closed/open mobile headers match exactly
+  const mobileLogoHeightRem = 8; // 8rem = Tailwind h-32
 
   return (
     <header className="absolute inset-x-0 top-0 z-40">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-4 pb-3">
-        {/* CLICKABLE LOGO (same-tab) — same size on mobile whether menu is closed or open */}
         <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
           <img
             src="/scl-footer-logo-white.png"
             alt="South Coast Legal"
-            style={{ height: `${mobileLogoHeightRem}rem` }}      // mobile size (same as open menu)
+            style={{ height: `${mobileLogoHeightRem}rem` }}
             className="w-auto md:h-[150px] lg:h-[170px] md:w-auto object-contain"
           />
         </a>
@@ -84,26 +83,27 @@ export default function Header() {
         </button>
       </div>
 
-      {/* FULL-SCREEN MOBILE MENU (identical header row, bg #1E3B8B, phone visible, no scroll) */}
+      {/* FULL-SCREEN MOBILE MENU (no gaps, covers entire screen) */}
       {open && (
         <div
-          className="fixed inset-0 z-50 w-screen overflow-hidden bg-[#1E3B8B] text-white transition-opacity duration-200"
-          style={{ height: "100dvh" }}
+          className="
+            fixed top-0 left-0 right-0 bottom-0 z-[100]
+            w-full min-w-full overflow-hidden
+            bg-[#1E3B8B] text-white
+            transition-opacity duration-200
+          "
+          style={{ height: "100dvh" }}   // robust on iOS/Android
           aria-modal="true"
           role="dialog"
         >
-          <div className="flex w-full flex-col" style={{ minHeight: "100dvh" }}>
-            {/* Top bar — EXACT same layout/size as closed header (logo left, X right) */}
+          <div className="flex w-full flex-col" style={{ minHeight: "100svh" }}>
+            {/* Header row in menu: identical to closed header (logo left, X right) */}
             <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 pt-4 pb-3">
-              <a
-                href="https://southcoast.legal"
-                aria-label="South Coast Legal — Home"
-                className="flex items-center"
-              >
+              <a href="https://southcoast.legal" aria-label="South Coast Legal — Home" className="flex items-center">
                 <img
                   src="/scl-footer-logo-white.png"
                   alt="South Coast Legal"
-                  style={{ height: `${mobileLogoHeightRem}rem` }}  // same as closed header
+                  style={{ height: `${mobileLogoHeightRem}rem` }}
                   className="w-auto object-contain"
                 />
               </a>
@@ -112,14 +112,14 @@ export default function Header() {
               </button>
             </div>
 
-            {/* Small-caps name centered under the logo */}
+            {/* Small-caps name line */}
             <div className="mx-auto w-full max-w-7xl px-6">
               <div className="[font-variant-caps:small-caps] tracking-[.08em] text-white/95 text-sm text-center">
                 Marianne M. Stivala, Esq.
               </div>
             </div>
 
-            {/* Menu (fits on one page: reduced font + spacing) */}
+            {/* Menu list (fits on one page) */}
             <nav className="mx-auto w-full max-w-7xl px-6 flex-1 overflow-hidden">
               <ul className="divide-y divide-white/25">
                 {[
@@ -137,8 +137,6 @@ export default function Header() {
                     </button>
                   </li>
                 ))}
-
-                {/* Phone row (clearly visible, clickable) */}
                 <li>
                   <a
                     href="tel:+19549953306"
@@ -151,12 +149,11 @@ export default function Header() {
               </ul>
             </nav>
 
-            {/* Bottom CTA — shorter label for mobile menu */}
+            {/* Bottom CTA — short label */}
             <div className="px-6 pb-6">
               <button
                 onClick={() => go("contact")}
                 className="cursor-pointer w-full rounded-2xl bg-[#1f54d8] px-6 py-4 text-lg font-semibold text-white hover:bg-[#1b49bd]"
-                aria-label="Book Consultation"
               >
                 Book Consultation
               </button>
