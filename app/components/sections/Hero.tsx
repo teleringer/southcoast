@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Button from "../base/Button"; // fixed: relative path from sections -> base
+import Button from "../base/Button";
 
 export default function Hero() {
   const ref = useRef<HTMLVideoElement | null>(null);
@@ -19,13 +19,13 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen overflow-x-hidden">
-      {/* FULL-BLEED BACKGROUND */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Desktop: oversized video so no gutters */}
+    <section id="home" className="relative min-h-screen overflow-hidden">
+      {/* BACKGROUND */}
+      <div className="absolute inset-0">
+        {/* Desktop video */}
         <video
           ref={ref}
-          className="absolute left-1/2 top-1/2 w-[120vw] h-[120vh] -translate-x-1/2 -translate-y-1/2 object-cover hidden md:block"
+          className="absolute left-1/2 top-1/2 hidden h-[120vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover md:block"
           src="https://gumlet.tv/watch/68d80d84c997e2c3ed515ab1/"
           autoPlay
           loop
@@ -34,9 +34,9 @@ export default function Hero() {
           poster="/poster.jpg"
           aria-label="Background video"
         />
-        <div className="absolute inset-0 hidden md:block bg-blue-900/40" />
+        <div className="absolute inset-0 hidden bg-blue-900/40 md:block" />
 
-        {/* Mobile: your uploaded image (make sure /public/mobile-hero.jpg exists) */}
+        {/* Mobile image */}
         <div className="absolute inset-0 md:hidden">
           <img
             src="/mobile-hero.jpg"
@@ -47,26 +47,44 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* CONTENT (centered; offset lower on desktop) */}
+      {/* CONTENT */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16">
-        <div className="flex items-center min-h-[calc(100svh-200px)] pt-24 md:min-h-[calc(100vh-140px)] md:pt-40">
-          <div className="mx-auto max-w-4xl text-white text-center">
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-              Marianne M. Stivala, Esq.
+        {/* push down on mobile so it clears the large logo; normal on md+ */}
+        <div className="flex items-center min-h-[calc(100svh-220px)] pt-[11rem] md:min-h-[calc(100vh-140px)] md:pt-40">
+          <div className="mx-auto max-w-4xl text-center text-white">
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl">
+              Invested In Your Success
             </h1>
-            <p className="mt-4 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-blue-100">
-              Since 2001 • Family, Probate, and General Civil Practice
+            <p className="mt-4 mx-auto max-w-3xl text-base text-blue-100 sm:text-lg md:text-xl">
+              Attorney Marianne M. Stivala provides personalized legal counsel in
+              Business Law, Real Estate, and Wills &amp; Estates across Florida and
+              Pennsylvania.
             </p>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <button onClick={() => jump("contact")} className="cursor-pointer">
-                <Button className="cursor-pointer">Request a Consultation</Button>
+                <Button className="cursor-pointer">Schedule Consultation</Button>
               </button>
-              <a href="/practice-areas" className="cursor-pointer">
+              <button onClick={() => jump("services")} className="cursor-pointer">
                 <Button variant="ghost" className="cursor-pointer">
-                  View Practice Areas
+                  Our Services
                 </Button>
-              </a>
+              </button>
+            </div>
+
+            <div className="mt-10 grid grid-cols-3 gap-2 text-white/90">
+              <div>
+                <div className="text-4xl font-bold">20+</div>
+                <div className="text-sm">Years Experience</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold">2</div>
+                <div className="text-sm">State Licenses</div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold">3</div>
+                <div className="text-sm">Practice Areas</div>
+              </div>
             </div>
           </div>
         </div>
