@@ -7,8 +7,8 @@ import Contact from "../components/sections/Contact";
 export default function Page() {
   return (
     <main>
-      {/* Only ONE hero on the page */}
       <Hero />
+      {/* If any of these don’t exist in your repo yet, comment them out */}
       <About />
       <Services />
       <Contact />
