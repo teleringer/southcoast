@@ -22,18 +22,23 @@ export default function Hero() {
     <section id="home" className="relative min-h-screen overflow-hidden">
       {/* BACKGROUND */}
       <div className="absolute inset-0">
-        {/* Desktop video */}
+        {/* Desktop/Laptop video (must be a real media file) */}
         <video
           ref={ref}
           className="absolute left-1/2 top-1/2 hidden h-[120vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover md:block"
-          src="https://gumlet.tv/watch/68d80d84c997e2c3ed515ab1/"
           autoPlay
           loop
           muted
           playsInline
           poster="/poster.jpg"
           aria-label="Background video"
-        />
+        >
+          {/* Option A: put your MP4 at /public/hero.mp4 */}
+          <source src="/hero.mp4" type="video/mp4" />
+          {/* Option B: if staying on Gumlet, replace with their *direct* .mp4 or .m3u8 URL (not /watch/...) */}
+          {/* <source src="https://cdn.gumlet.com/your-file.mp4" type="video/mp4" /> */}
+          {/* <source src="https://cdn.gumlet.com/your-hls.m3u8" type="application/x-mpegURL" /> */}
+        </video>
         <div className="absolute inset-0 hidden bg-blue-900/40 md:block" />
 
         {/* Mobile image */}
