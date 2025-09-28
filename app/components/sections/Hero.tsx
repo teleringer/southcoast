@@ -1,7 +1,8 @@
+// components/sections/Hero.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
-import Button from "../base/Button"; // path from components/sections -> components/base
+import Button from "../base/Button"; // fixed: relative path from sections -> base
 
 export default function Hero() {
   const ref = useRef<HTMLVideoElement | null>(null);
@@ -21,7 +22,7 @@ export default function Hero() {
     <section id="home" className="relative min-h-screen overflow-x-hidden">
       {/* FULL-BLEED BACKGROUND */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Desktop video (oversized so no gutters) */}
+        {/* Desktop: oversized video so no gutters */}
         <video
           ref={ref}
           className="absolute left-1/2 top-1/2 w-[120vw] h-[120vh] -translate-x-1/2 -translate-y-1/2 object-cover hidden md:block"
@@ -35,10 +36,10 @@ export default function Hero() {
         />
         <div className="absolute inset-0 hidden md:block bg-blue-900/40" />
 
-        {/* Mobile: your uploaded image */}
+        {/* Mobile: your uploaded image (make sure /public/mobile-hero.jpg exists) */}
         <div className="absolute inset-0 md:hidden">
           <img
-            src="/mobile-hero.jpg"   /* make sure this exists in /public */
+            src="/mobile-hero.jpg"
             alt="Florida beach at dusk"
             className="absolute left-1/2 top-1/2 h-[120svh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover"
           />
