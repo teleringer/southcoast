@@ -24,16 +24,23 @@ export default function Hero() {
       <div className="absolute inset-0">
         {/* Desktop/Large: video */}
         <video
-          ref={ref}
-          className="absolute left-1/2 top-1/2 hidden h-[120vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover md:block"
-          src="https://gumlet.tv/watch/68d80d84c997e2c3ed515ab1/"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/poster.jpg"
-          aria-label="Background video"
-        />
+  ref={ref}
+  className="absolute left-1/2 top-1/2 hidden h-[120vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover md:block"
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+  poster="/poster.jpg"
+  aria-label="Background video"
+>
+  {/* Use your working local file */}
+  <source src="/hero.mp4" type="video/mp4" />
+
+  {/* Optional: keep a second, known-good fallback while testing */}
+  {/* <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" /> */}
+</video>
+
         <div className="absolute inset-0 hidden bg-blue-900/40 md:block" />
         {/* Mobile: static background image */}
         <div className="absolute inset-0 md:hidden">
