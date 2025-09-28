@@ -10,7 +10,7 @@ export default function Hero() {
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-    v.play().catch(() => {});
+    v.play().catch(() => {}); // autoplay on desktop (muted)
   }, []);
 
   const jump = (id: string) => {
@@ -19,9 +19,10 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen overflow-x-hidden">
+    <section id="home" className="relative min-h-screen overflow-hidden">
       {/* BACKGROUND */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0">
+        {/* Desktop/Large: video */}
         <video
           ref={ref}
           className="absolute left-1/2 top-1/2 hidden h-[120vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 object-cover md:block"
@@ -34,8 +35,7 @@ export default function Hero() {
           aria-label="Background video"
         />
         <div className="absolute inset-0 hidden bg-blue-900/40 md:block" />
-
-        {/* Mobile background image */}
+        {/* Mobile: static background image */}
         <div className="absolute inset-0 md:hidden">
           <img
             src="/mobile-hero.jpg"
@@ -48,14 +48,13 @@ export default function Hero() {
 
       {/* CONTENT */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16">
-        {/* Extra top padding on mobile so hero clears the large logo.
-           Adjust if you tweak the mobile logo size later. */}
+        {/* Extra mobile top padding so hero clears the large logo */}
         <div className="flex items-center min-h-[calc(100svh-200px)] pt-[11rem] md:min-h-[calc(100vh-140px)] md:pt-40">
           <div className="mx-auto max-w-4xl text-center text-white">
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl">
               Invested In Your Success
             </h1>
-            <p className="mt-4 mx-auto max-w-2xl text-base text-blue-100 sm:text-lg md:text-xl">
+            <p className="mt-4 mx-auto max-w-3xl text-base text-blue-100 sm:text-lg md:text-xl">
               Attorney Marianne M. Stivala provides personalized legal counsel in
               Business Law, Real Estate, and Wills &amp; Estates across Florida and
               Pennsylvania.
@@ -65,14 +64,14 @@ export default function Hero() {
               <button onClick={() => jump("contact")} className="cursor-pointer">
                 <Button className="cursor-pointer">Schedule Consultation</Button>
               </button>
-              <a href="#services" className="cursor-pointer">
+              <button onClick={() => jump("services")} className="cursor-pointer">
                 <Button variant="ghost" className="cursor-pointer">
                   Our Services
                 </Button>
-              </a>
+              </button>
             </div>
 
-            {/* Stats row (keep as you had) */}
+            {/* Simple stats row (one instance only) */}
             <div className="mt-10 grid grid-cols-3 gap-2 text-white/90">
               <div>
                 <div className="text-4xl font-bold">20+</div>
